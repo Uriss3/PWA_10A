@@ -68,9 +68,12 @@ function drawCar() {
                     </tr>`;
         });
 
+        // Calculamos el total dinámicamente sumando (precio * cantidad) de cada producto
+        const totalPagar = carrito.reduce((total, guitar) => total + (guitar.precio * guitar.cantidad), 0);
+
         html += `   </tbody>
                 </table>
-                <p class="text-end">Total pagar: <span class="fw-bold">$899</span></p>
+                <p class="text-end">Total pagar: <span class="fw-bold">$${totalPagar}</span></p>
                 <button class="btn btn-dark w-100 mt-3 p-2 vaciar-carrito">Vaciar Carrito</button>`;
         
         div.innerHTML = html;
@@ -108,7 +111,7 @@ container.addEventListener('click', getGuitar);
 // Listener para el carrito (Vaciar carrito)
 divCarrito.addEventListener('click', e => {
     if (e.target.classList.contains('vaciar-carrito')) {
-        carrito = []; // Vaciamos el arreglo
-        drawCar();    // Volvemos a dibujar el carrito (ahora aparecerá vacío)
+        carrito = [];
+        drawCar();
     }
 });
