@@ -4,7 +4,8 @@ import { db } from "./guitarras.js";
 // variables
 const container = document.querySelector("h2 + div");
 const divCarrito = document.querySelector('#carrito');
-let carrito = [];
+// 1. Cargamos el carrito desde el localStorage si existe, de lo contrario inicia vacío
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 // funciones
 function createCard(guitar) {
@@ -58,17 +59,17 @@ function drawCar() {
                             $${guitar.precio}
                         </td>
                         <td class="flex align-items-start gap-4">
-                            <button type="button" class="btn btn-dark">-</button>
+                            <button type="button" class="btn btn-dark disminuir" data-id="${guitar.id}">-</button>
                             ${guitar.cantidad}
-                            <button type="button" class="btn btn-dark">+</button>
+                            <button type="button" class="btn btn-dark aumentar" data-id="${guitar.id}">+</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger" type="button">X</button>
+                            <button class="btn btn-danger eliminar" type="button" data-id="${guitar.id}">X</button>
                         </td>
                     </tr>`;
         });
 
-        // Calculamos el total dinámicamente sumando (precio * cantidad) de cada producto
+        // Calculamos el total dinámicamente
         const totalPagar = carrito.reduce((total, guitar) => total + (guitar.precio * guitar.cantidad), 0);
 
         html += `   </tbody>
@@ -79,8 +80,16 @@ function drawCar() {
         div.innerHTML = html;
     }
     
+    // 2. Guardamos el carrito actualizado en el localStorage cada vez que se dibuja
+    sincronizarStorage();
+
     divCarrito.innerHTML = '';
     divCarrito.appendChild(div);
+}
+
+// Función para guardar en el localStorage
+function sincronizarStorage() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
 function getGuitar(e) {
@@ -108,10 +117,40 @@ drawCar();
 // listeners
 container.addEventListener('click', getGuitar);
 
-// Listener para el carrito (Vaciar carrito)
+// Listener unificado para las acciones dentro del carrito
 divCarrito.addEventListener('click', e => {
+    // Vaciar carrito
     if (e.target.classList.contains('vaciar-carrito')) {
         carrito = [];
+        drawCar();
+    }
+
+    // Aumentar cantidad (+)
+    if (e.target.classList.contains('aumentar')) {
+        const id = e.target.getAttribute('data-id');
+        const producto = carrito.find(guitar => guitar.id === Number(id));
+        producto.cantidad++;
+        drawCar();
+    }
+
+    // Disminuir cantidad (-)
+    if (e.target.classList.contains('disminuir')) {
+        const id = e.target.getAttribute('data-id');
+        const producto = carrito.find(guitar => guitar.id === Number(id));
+        
+        if (producto.cantidad > 1) {
+            producto.cantidad--;
+            drawCar();
+        } else {
+            carrito = carrito.filter(guitar => guitar.id !== Number(id));
+            drawCar();
+        }
+    }
+
+    // Eliminar producto completo (X)
+    if (e.target.classList.contains('eliminar')) {
+        const id = e.target.getAttribute('data-id');
+        carrito = carrito.filter(guitar => guitar.id !== Number(id));
         drawCar();
     }
 });
