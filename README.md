@@ -1,12 +1,14 @@
-# ¡Hola! Soy [Tu Nombre] 👋
+🎨 Uriss | Diseñador Gráfico
 
-Desarrollador en formación enfocado en aprender y construir proyectos.
+¡Hola! Soy diseñador gráfico especializado en ilustración, branding y artes vectoriales.
 
-📌 Sobre mí
-- 🌱 Aprendiendo: [Lenguajes que usas, ej. HTML, CSS, JavaScript]
-- 🔭 Proyectos: Trabajando en [Nombre de tu proyecto o "mis primeros repositorios"]
-- 🎯 Objetivo: [Tu meta corta, ej. Crear mi primer sitio web]
+🖌️ Lo que hago
+- Especialidades: Ilustración vectorial, logos, gráficos para estampado y branding.
+- Herramientas principales: Illustrator, Photoshop y Figma.
 
-📫 Contacto
-- 📧 **Correo:** tu-correo@email.com
-- 💼 **LinkedIn:** [linkedin.com/in/tu-perfil](https://linkedin.com)
+🖼️ Mi Portafolio
+- 🎨 Behance: [behance.net/tu-usuario](https://behance.net)
+- 📸 Instagram: [@tu_usuario](https://instagram.com)
+
+📩 Contacto
+- 📧 Correo: urisso@email.com
